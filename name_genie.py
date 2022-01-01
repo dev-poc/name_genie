@@ -17,11 +17,15 @@ def Generate_name(
     nomen_prefix_ratio=.4,
     nomen_suffix_list=False,
     nomen_suffix_ratio=.4,
-    force_alliteration=False
+    force_alliteration=False,
+    cognomen_ratio=.1,
+    cognomen_list=False
+
+
     ):
+        cognomen=""
 
-
-    ##praenomen syllabic loop 
+##praenomen syllabic loop 
     ## Prefixes for first name
         if bool(praenomen_prefix_list) != False and random.random() <= praenomen_prefix_ratio:
             praenomen=random.choice(praenomen_prefix_list)
@@ -38,53 +42,39 @@ def Generate_name(
         ## Firstname suffix
         if bool(praenomen_suffix_list) != False and random.random() <= praenomen_suffix_ratio:
             praenomen=praenomen + random.choice(praenomen_suffix_list)
-        else:
-            pass
 
 
 
-        ##Nomen 
+
+####Nomen 
         nomen=""
-        ## surname randomizinator
+    ## surname randomizinator
         for i in range(random.randint(syllables_min,syllables_max)):
             random.choice(char.consonants_all)+random.choice(char.vowels)
-            if (random.random()) < dipthong_ratio :      #if dipthong
+            if (random.random()) <= dipthong_ratio :      #if dipthong
                 proc_syl=(random.choice(char.consonants_all)+random.choice(char.dipthongs))
             else:
                 proc_syl=(random.choice(char.consonants_all)+random.choice(char.vowels))
             nomen=(nomen + proc_syl)
-
-        ##  alliteration between prae and nomen             
+    ##  alliteration between prae and nomen             
         if force_alliteration==True:
             nomen=praenomen[0]+nomen[1:]
-
-
         ##Nomen prefix
         if bool(nomen_prefix_list) != False and random.random() <= nomen_prefix_ratio:
             nomen_prefix=random.choice(nomen_prefix_list)
             nomen=nomen_prefix + nomen
-        #    nomen_suffix_ratio / 2
-        else:
-            pass
-
-        ## surname suffix
+            nomen_suffix_ratio / 2
+    ## surname suffix
         if bool(nomen_suffix_list) != False and random.random() <= nomen_suffix_ratio:
             nomen=nomen + random.choice(nomen_suffix_list)
-        else:
-            pass
 
-            
+##Cognomen 
 
-
-
+        if (random.random()) <= cognomen_ratio and bool(cognomen_list) != False:
+            cognomen=(random.choice(cognomen_list).title())
 
 
 
 
+        return{'culture':culture,'praenomen':praenomen,'nomen':nomen,'cognomen':cognomen} 
 
-
-
-
-
-
-        return{'culture':culture,'praenomen':praenomen,'nomen':nomen} 
