@@ -12,8 +12,11 @@ def Generate_name(
     praenomen_prefix_list=False,
     praenomen_prefix_ratio=.4,
     praenomen_suffix_list=False,
-    praenomen_suffix_ratio=.4
-
+    praenomen_suffix_ratio=.4,
+    nomen_prefix_list=False,
+    nomen_prefix_ratio=.4,
+    nomen_suffix_list=False,
+    nomen_suffix_ratio=.4
 
     ):
 
@@ -31,12 +34,29 @@ def Generate_name(
                 proc_syl=(random.choice(char.consonants_all)+random.choice(char.dipthongs))
             else:
                 proc_syl=(random.choice(char.consonants_all)+random.choice(char.vowels))
-
             praenomen=(praenomen + proc_syl)
         ## Firstname suffix
         if bool(praenomen_suffix_list) != False and random.random() <= praenomen_suffix_ratio:
             praenomen=praenomen + random.choice(praenomen_suffix_list)
         else:
             pass
-     
-        return(culture,praenomen) 
+  
+        ##Nomen 
+        if bool(nomen_prefix_list) != False and random.random() <= nomen_prefix_ratio:
+            nomen=random.choice(nomen_prefix_list)
+        else:
+            nomen=""
+        ## surname randomizinator
+        for i in range(random.randint(syllables_min,syllables_max)):
+            random.choice(char.consonants_all)+random.choice(char.vowels)
+            if (random.random()) < dipthong_ratio :      #if dipthong
+                proc_syl=(random.choice(char.consonants_all)+random.choice(char.dipthongs))
+            else:
+                proc_syl=(random.choice(char.consonants_all)+random.choice(char.vowels))
+            nomen=(nomen + proc_syl)
+        ## surname suffix
+        if bool(nomen_suffix_list) != False and random.random() <= nomen_suffix_ratio:
+            nomen=nomen + random.choice(nomen_suffix_list)
+        else:
+            pass
+        return{'culture':culture,'praenomen':praenomen,'nomen':nomen} 
