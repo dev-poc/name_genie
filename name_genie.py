@@ -19,11 +19,13 @@ def Generate_name(
     nomen_suffix_ratio=.4,
     force_alliteration=False,
     cognomen_ratio=.1,
-    cognomen_list=False
-
+    cognomen_list=False,
+    title_ratio= .1,
+    title_list=False
 
     ):
-        cognomen=""
+
+
 
 ##praenomen syllabic loop 
     ## Prefixes for first name
@@ -71,10 +73,15 @@ def Generate_name(
 ##Cognomen 
 
         if (random.random()) <= cognomen_ratio and bool(cognomen_list) != False:
-            cognomen=(random.choice(cognomen_list).title())
+            cognomen_list=(random.choice(cognomen_list).title())
+        else:
+            cognomen_list=""
 
+##Titles
+        if (random.random()) <= title_ratio and bool(title_list) != False:
+            title_list=(random.choice(title_list).title())
+        else:
+            title_list=""
 
-
-
-        return{'culture':culture,'praenomen':praenomen,'nomen':nomen,'cognomen':cognomen} 
+        return{'culture':culture,'praenomen':praenomen,'nomen':nomen,'cognomen':cognomen_list,'title':title_list} 
 
