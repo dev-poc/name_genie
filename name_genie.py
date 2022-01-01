@@ -16,8 +16,8 @@ def Generate_name(
     nomen_prefix_list=False,
     nomen_prefix_ratio=.4,
     nomen_suffix_list=False,
-    nomen_suffix_ratio=.4
-
+    nomen_suffix_ratio=.4,
+    force_alliteration=False
     ):
 
 
@@ -40,12 +40,11 @@ def Generate_name(
             praenomen=praenomen + random.choice(praenomen_suffix_list)
         else:
             pass
-  
+
+
+
         ##Nomen 
-        if bool(nomen_prefix_list) != False and random.random() <= nomen_prefix_ratio:
-            nomen=random.choice(nomen_prefix_list)
-        else:
-            nomen=""
+        nomen=""
         ## surname randomizinator
         for i in range(random.randint(syllables_min,syllables_max)):
             random.choice(char.consonants_all)+random.choice(char.vowels)
@@ -54,9 +53,38 @@ def Generate_name(
             else:
                 proc_syl=(random.choice(char.consonants_all)+random.choice(char.vowels))
             nomen=(nomen + proc_syl)
+
+        ##  alliteration between prae and nomen             
+        if force_alliteration==True:
+            nomen=praenomen[0]+nomen[1:]
+
+
+        ##Nomen prefix
+        if bool(nomen_prefix_list) != False and random.random() <= nomen_prefix_ratio:
+            nomen_prefix=random.choice(nomen_prefix_list)
+            nomen=nomen_prefix + nomen
+        #    nomen_suffix_ratio / 2
+        else:
+            pass
+
         ## surname suffix
         if bool(nomen_suffix_list) != False and random.random() <= nomen_suffix_ratio:
             nomen=nomen + random.choice(nomen_suffix_list)
         else:
             pass
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
         return{'culture':culture,'praenomen':praenomen,'nomen':nomen} 
