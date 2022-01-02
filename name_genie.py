@@ -24,9 +24,6 @@ def Generate_name(
     title_list=False
 
     ):
-
-
-
 ##praenomen syllabic loop 
     ## Prefixes for first name
         if bool(praenomen_prefix_list) != False and random.random() <= praenomen_prefix_ratio:
@@ -44,10 +41,6 @@ def Generate_name(
         ## Firstname suffix
         if bool(praenomen_suffix_list) != False and random.random() <= praenomen_suffix_ratio:
             praenomen=praenomen + random.choice(praenomen_suffix_list)
-
-
-
-
 ####Nomen 
         nomen=""
     ## surname randomizinator
@@ -69,14 +62,16 @@ def Generate_name(
     ## surname suffix
         if bool(nomen_suffix_list) != False and random.random() <= nomen_suffix_ratio:
             nomen=nomen + random.choice(nomen_suffix_list)
-
+        else:
+            if random.randint(0,9) <= 4 and ((len(nomen)/2) - 2) > syllables_min:
+                print(nomen, " became ", nomen[:-1])
+                nomen=nomen[:-1]
 ##Cognomen 
 
         if (random.random()) <= cognomen_ratio and bool(cognomen_list) != False:
             cognomen_list=(random.choice(cognomen_list).title())
         else:
             cognomen_list=""
-
 ##Titles
         if (random.random()) <= title_ratio and bool(title_list) != False:
             title_list=(random.choice(title_list).title())
