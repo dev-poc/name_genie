@@ -24,6 +24,7 @@ def Generate_name(
     title_list=False
 
     ):
+
 ##praenomen syllabic loop 
     ## Prefixes for first name
         if bool(praenomen_prefix_list) != False and random.random() <= praenomen_prefix_ratio:
@@ -38,9 +39,14 @@ def Generate_name(
             else:
                 proc_syl=(random.choice(char.consonants_all)+random.choice(char.vowels))
             praenomen=(praenomen + proc_syl)
+    # Some names will lose the last letter, for a likelihood of ending in a consonant.
+        if random.randint(0,9) <= 4 and ((len(praenomen)/2) - 2) > syllables_min:
+            print(praenomen, " became ", praenomen[:-1])
+            praenomen=praenomen[:-1]
         ## Firstname suffix
         if bool(praenomen_suffix_list) != False and random.random() <= praenomen_suffix_ratio:
             praenomen=praenomen + random.choice(praenomen_suffix_list)
+
 ####Nomen 
         nomen=""
     ## surname randomizinator
@@ -51,6 +57,9 @@ def Generate_name(
             else:
                 proc_syl=(random.choice(char.consonants_all)+random.choice(char.vowels))
             nomen=(nomen + proc_syl)
+    # Some names will lose the last letter, for a likelihood of ending in a consonant.    
+        if random.randint(0,9) <= 4 and ((len(nomen)/2) - 2) > syllables_min:
+            nomen=nomen[:-1]
     ##  alliteration between prae and nomen             
         if force_alliteration==True:
             nomen=praenomen[0]+nomen[1:]
@@ -62,10 +71,8 @@ def Generate_name(
     ## surname suffix
         if bool(nomen_suffix_list) != False and random.random() <= nomen_suffix_ratio:
             nomen=nomen + random.choice(nomen_suffix_list)
-        else:
-            if random.randint(0,9) <= 4 and ((len(nomen)/2) - 2) > syllables_min:
-                print(nomen, " became ", nomen[:-1])
-                nomen=nomen[:-1]
+
+
 ##Cognomen 
 
         if (random.random()) <= cognomen_ratio and bool(cognomen_list) != False:
